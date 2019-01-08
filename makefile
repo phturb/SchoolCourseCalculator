@@ -10,6 +10,8 @@ OBJ := $(SRC:$(SRCDIR)/%.cpp=$(OBJDIR)/%.o)
 EXEC=SCC
 
 all: $(EXEC)
+
+run: $(EXEC)
 	@(./$(EXEC))
 
 $(OBJDIR)/%.o: $(SRCDIR)/%.cpp

@@ -2,26 +2,27 @@
 #define CLASS_H
 
 #include "Exam.h"
+#include "GeneralFunction.h"
 #include <iostream>
 #include <map>
 #include <string>
+#include <algorithm>
 
 using namespace std;
 
-class Course {
+class Course : public GeneralFunction<Exam> {
 public:
-  Course(std::string name = "", unsigned int credit = 0);
+  Course(std::string name = "", unsigned int credit = 0, double passingNote = 50);
   ~Course();
   // getter
-  std::string getName() const;
+  string getName() const;
   Exam *getExam(const std::string examName);
   unsigned int getCredit() const;
+  double getPassingNote() const;
   // setter
   void setName(const std::string name);
   void setCredit(const unsigned int credit);
-
-  void addExam(Exam *exam);
-  void removeExam(Exam *exam);
+  void setPassingNote(const double note);
 
   double calculateCourseNote();
   double calculateMissingPercentage();
@@ -30,9 +31,9 @@ public:
   friend std::ostream &operator<<(std::ostream &os, const Course &course);
 
 private:
-  std::string name_;
-  std::map<std::string, Exam *> examList_;
+  string name_;
   unsigned int credit_;
+  double passingNote_;
 };
 
 #endif

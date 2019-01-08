@@ -24,7 +24,7 @@ void Exam::setWeighting(double weight) { weighting_ = weight; };
 
 void Exam::setStatus(bool isdone) { done_ = isdone; }
 
-std::ostream &operator<<(std::ostream &os, const Exam &exam){
+std::ostream &operator<<(std::ostream &os, const Exam &exam) {
   os << exam.getName() << std::endl;
   return os;
 };

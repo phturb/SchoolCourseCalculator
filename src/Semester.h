@@ -2,29 +2,27 @@
 #define SEMESTER_H
 
 #include "Course.h"
+#include "GeneralFunction.h"
 #include <iostream>
 #include <map>
 #include <string>
 
 using namespace std;
 
-class Semester {
+class Semester : public GeneralFunction<Course> {
 public:
-        Semester(string name = "");
-        ~Semester();
+  Semester(string name = "");
+  ~Semester();
 
-        Course* getCourse(std::string courseName) const;
-        std::string getName() const;
+  std::string getName() const;
 
-        void setName(std::string name);
+  void setName(std::string name);
 
-        void addCourse(Course* course);
-        void removeCourse(Course* course);
-        friend ostream& operator<<(ostream& os, const Semester &semester);
+  friend ostream &operator<<(ostream &os, const Semester &semester);
+
 private:
-        map<string, Course*> courseList_;
-        string name_;
+  map<string, Course *> courseList_;
+  string name_;
 };
-
 
 #endif

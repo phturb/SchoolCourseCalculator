@@ -1,12 +1,11 @@
 #include "Course.h"
 
 Course::Course(std::string name, unsigned int credit, double passingNote)
-    : name_(name), credit_(credit), passingNote_(passingNote) {
-  note_ = 0;
+    : name_(name), credit_(credit), passingNote_(passingNote), note_(0),
+      coteLetter_("F") {
   cote_ = F;
-  coteLetter_ = "F";
 };
-Course::~Course(){};
+Course::~Course() { deleteItemList(); };
 // getter
 string Course::getName() const { return name_; };
 
@@ -106,6 +105,8 @@ double Course::calculateCote() {
     return 1;
   case F:
     return 0;
+  default:
+    return 0;
   }
 };
 
@@ -113,16 +114,24 @@ std::ostream &operator<<(std::ostream &os, Course &course) {
   os << "-------------------------------\n";
   os << "Course Name : " << course.getName() << std::endl;
   os << "-------------------------------\n";
-  auto courseItemList = course.getItemList();
-  for (auto it = courseItemList.begin(); it != courseItemList.end(); it++) {
-    os << *(it->second);
+  course.showItems();
+  double weight = 0;
+  double note = 0;
+  for (auto it = course.itemList_.begin(); it != course.itemList_.end(); ++it) {
+    auto *exam = it->second;
+    if (exam->getStatus()) {
+      note += (exam->getObtainedNote() / exam->getMaximumNote()) *
+              (exam->getWeighting());
+      weight += exam->getWeighting();
+    }
   }
+  course.calculateCurrentNote();
 
   cout << "Course Info" << endl;
-  cout << "Current Mark : " << course.calculateCurrentNote() << "%" << endl;
-  cout << "Final Mark : " << course.note_ << "%" << endl;
+  cout << "Current Mark : " << course.note_ << "/" << weight << endl;
   cout << "Missing percentage : " << course.calculateMissingPercentage() << "%"
        << endl;
-  cout << "Cote : " << course.calculateCote() << " " << course.coteLetter_ << endl;
+  cout << "Cote : " << course.calculateCote() << " -- " << course.coteLetter_
+       << endl;
   return os;
 };

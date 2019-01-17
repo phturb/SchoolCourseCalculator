@@ -19,7 +19,6 @@ public:
   enum Cote { A, BPLUS, B, CPLUS, C, DPLUS, D, F };
   // getter
   string getName() const;
-  Exam *getExam(const std::string examName);
   unsigned int getCredit() const;
   double getPassingNote() const;
   // setter

@@ -12,6 +12,8 @@ public:
   void addItem(T *item);
   void removeItem(string itemName);
   T *getItem(string itemName);
+  void deleteItemList();
+  void showItems();
 
 protected:
   map<string, T *> itemList_;
@@ -44,8 +46,20 @@ template <typename T> T *GeneralFunction<T>::getItem(string itemName) {
   return new T;
 };
 
-template <typename T> map<string, T *> GeneralFunction<T>::getItemList(){
+template <typename T> map<string, T *> GeneralFunction<T>::getItemList() {
   return itemList_;
 };
+template <typename T> void GeneralFunction<T>::deleteItemList() {
+  for (auto it = itemList_.begin(); it != itemList_.end(); it++) {
+    delete it->second;
+    itemList_.erase(it);
+  }
+}
+
+template <typename T> void GeneralFunction<T>::showItems() {
+  for (auto it = itemList_.begin(); it != itemList_.end(); it++) {
+    cout << *(it->second);
+  }
+}
 
 #endif

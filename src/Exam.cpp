@@ -25,6 +25,18 @@ void Exam::setWeighting(double weight) { weighting_ = weight; };
 void Exam::setStatus(bool isdone) { done_ = isdone; }
 
 std::ostream &operator<<(std::ostream &os, const Exam &exam) {
-  os << "Exam Name : " << exam.getName() << std::endl;
+  os << "Exam Name : " << exam.getName();
+  if (exam.getStatus()) {
+    os << "\n --- Obtained Mark : " << exam.getObtainedNote() << "/"
+       << exam.getMaximumNote();
+    os << "\n --- Weight : " << exam.getWeighting() << "%";
+    os << "\n --- Obtained points : "
+       << exam.getObtainedNote() * exam.getWeighting() / exam.getMaximumNote()
+       << "/100" << endl;
+  } else {
+    os << "\n --- Exam not yet pass";
+    os << "\n --- Weight : " << exam.getWeighting() << "%" << endl;
+  }
+
   return os;
 };

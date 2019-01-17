@@ -15,6 +15,7 @@ public:
   ~Semester();
 
   std::string getName() const;
+  double getTotalCredit();
 
   void setName(std::string name);
 
@@ -27,6 +28,7 @@ public:
 private:
   map<string, Course *> courseList_;
   string name_;
+  double totalCredit_;
 };
 
 #endif

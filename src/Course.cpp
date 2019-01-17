@@ -1,7 +1,11 @@
 #include "Course.h"
 
 Course::Course(std::string name, unsigned int credit, double passingNote)
-    : name_(name), credit_(credit), passingNote_(passingNote){};
+    : name_(name), credit_(credit), passingNote_(passingNote) {
+  note_ = 0;
+  cote_ = F;
+  coteLetter_ = "F";
+};
 Course::~Course(){};
 // getter
 string Course::getName() const { return name_; };
@@ -17,49 +21,108 @@ void Course::setCredit(const unsigned int credit) { credit_ = credit; }
 
 void Course::setPassingNote(const double note) { passingNote_ = note; };
 
-//Manupulator
+// Manupulator
 
-double Course::calculateCourseNote()
-{
+void Course::calculateCourseNote() {
   double note = 0;
   double weight = 0;
-  for (auto it = itemList_.begin(); it != itemList_.end(); ++it)
-{
-  Exam* exam = it->second;
-  if(exam->getStatus()){
-    note += (exam->getObtainedNote()/exam->getMaximumNote())*(exam->getWeighting());
-    weight += exam->getWeighting();
+  for (auto it = itemList_.begin(); it != itemList_.end(); ++it) {
+    Exam *exam = it->second;
+    if (exam->getStatus()) {
+      note += (exam->getObtainedNote() / exam->getMaximumNote()) *
+              (exam->getWeighting());
+      weight += exam->getWeighting();
+    }
   }
-}
-return note;
+  note_ = note;
 };
-double Course::calculateMissingPercentage()
-{
-  double currentNote = calculateCourseNote();
-  if (currentNote >= passingNote_){
+double Course::calculateMissingPercentage() {
+  calculateCourseNote();
+  if (note_ >= passingNote_) {
+    return 0;
+  } else {
+    return passingNote_ - note_;
+  }
+};
+double Course::calculateCurrentNote() {
+  double note = 0;
+  double weight = 0;
+  for (auto it = itemList_.begin(); it != itemList_.end(); ++it) {
+    Exam *exam = it->second;
+    if (exam->getStatus()) {
+      note += (exam->getObtainedNote() / exam->getMaximumNote()) *
+              (exam->getWeighting());
+      weight += exam->getWeighting();
+    }
+  }
+  calculateLettreCote();
+  return note / weight * 100;
+};
+
+void Course::calculateLettreCote() {
+  calculateCourseNote();
+  if (note_ >= 80) {
+    cote_ = A;
+    coteLetter_ = "A";
+  } else if (note_ >= 75) {
+    cote_ = BPLUS;
+    coteLetter_ = "B+";
+  } else if (note_ >= 70) {
+    cote_ = B;
+    coteLetter_ = "B";
+  } else if (note_ >= 65) {
+    cote_ = CPLUS;
+    coteLetter_ = "C+";
+  } else if (note_ >= 60) {
+    cote_ = C;
+    coteLetter_ = "C";
+  } else if (note_ >= 55) {
+    cote_ = DPLUS;
+    coteLetter_ = "D+";
+  } else if (note_ >= 50) {
+    cote_ = D;
+    coteLetter_ = "D";
+  } else {
+    cote_ = F;
+    coteLetter_ = "F";
+  }
+};
+
+double Course::calculateCote() {
+  switch (cote_) {
+  case A:
+    return 4;
+  case BPLUS:
+    return 3.5;
+  case B:
+    return 3;
+  case CPLUS:
+    return 2.5;
+  case C:
+    return 2;
+  case DPLUS:
+    return 1.5;
+  case D:
+    return 1;
+  case F:
     return 0;
   }
-  else{
-    return passingNote_ - currentNote;
-  }
-};
-double Course::calculateCurrentNote()
-{
-  double note = 0;
-  double weight = 0;
-  for (auto it = itemList_.begin(); it != itemList_.end(); ++it)
-{
-  Exam* exam = it->second;
-  if(exam->getStatus()){
-    note += (exam->getObtainedNote()/exam->getMaximumNote())*(exam->getWeighting());
-    weight += exam->getWeighting();
-  }
-}
-return note/weight*100;
 };
 
+std::ostream &operator<<(std::ostream &os, Course &course) {
+  os << "-------------------------------\n";
+  os << "Course Name : " << course.getName() << std::endl;
+  os << "-------------------------------\n";
+  auto courseItemList = course.getItemList();
+  for (auto it = courseItemList.begin(); it != courseItemList.end(); it++) {
+    os << *(it->second);
+  }
 
-std::ostream &operator<<(std::ostream &os, const Course &course) {
-  os << course.getName() << std::endl;
+  cout << "Course Info" << endl;
+  cout << "Current Mark : " << course.calculateCurrentNote() << "%" << endl;
+  cout << "Final Mark : " << course.note_ << "%" << endl;
+  cout << "Missing percentage : " << course.calculateMissingPercentage() << "%"
+       << endl;
+  cout << "Cote : " << course.calculateCote() << " " << course.coteLetter_ << endl;
   return os;
 };

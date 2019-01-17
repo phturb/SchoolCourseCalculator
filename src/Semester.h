@@ -18,7 +18,11 @@ public:
 
   void setName(std::string name);
 
-  friend ostream &operator<<(ostream &os, const Semester &semester);
+  double calculateCote();
+
+  string calculateLettreCote();
+
+  friend ostream &operator<<(ostream &os, Semester &semester);
 
 private:
   map<string, Course *> courseList_;

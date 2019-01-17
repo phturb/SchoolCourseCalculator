@@ -1,20 +1,19 @@
 #include "Course.h"
 
 Course::Course(std::string name, unsigned int credit, double passingNote)
-    : name_(name), credit_(credit), passingNote_(passingNote), note_(0),
+    : credit_(credit), passingNote_(passingNote), note_(0),
       coteLetter_("F") {
+  setName(name);
   cote_ = F;
 };
 Course::~Course() { deleteItemList(); };
 // getter
-string Course::getName() const { return name_; };
 
 unsigned int Course::getCredit() const { return credit_; };
 
 double Course::getPassingNote() const { return passingNote_; };
 
 // setter
-void Course::setName(const std::string name) { name_ = name; }
 
 void Course::setCredit(const unsigned int credit) { credit_ = credit; }
 

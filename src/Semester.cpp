@@ -1,12 +1,8 @@
 #include "Semester.h"
 
-Semester::Semester(string name) : name_(name){};
+Semester::Semester(string name){setName(name);};
 
 Semester::~Semester() { deleteItemList(); };
-
-std::string Semester::getName() const { return name_; };
-
-void Semester::setName(std::string name) { name_ = name; };
 
 double Semester::calculateCote() {
   double totalCreditWeight = 0;

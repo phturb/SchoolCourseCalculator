@@ -9,6 +9,8 @@ using namespace std;
 template <typename T> class GeneralFunction {
 public:
   map<string, T *> getItemList();
+  string getName();
+  void setName(string name);
   void addItem(T *item);
   void removeItem(string itemName);
   T *getItem(string itemName);
@@ -16,8 +18,14 @@ public:
   void showItems();
 
 protected:
+  string name_;
   map<string, T *> itemList_;
 };
+
+template <typename T> string GeneralFunction<T>::getName()
+{return name_;};
+template <typename T> void GeneralFunction<T>::setName(string name)
+{name_ = name;};
 
 template <typename T> void GeneralFunction<T>::addItem(T *item) {
   string name = item->getName();

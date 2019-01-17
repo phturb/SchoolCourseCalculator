@@ -14,10 +14,8 @@ public:
   Semester(string name = "");
   ~Semester();
 
-  std::string getName() const;
   double getTotalCredit();
 
-  void setName(std::string name);
 
   double calculateCote();
 

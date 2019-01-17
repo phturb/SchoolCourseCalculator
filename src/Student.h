@@ -16,10 +16,6 @@ public:
   ~Student();
 
   // getter
-  string getName() const;
-
-  // setter
-  void setName(const std::string name);
 
   double getCote();
   double getCreditAccumulated();

@@ -1,10 +1,9 @@
 #include "Student.h"
 
-Student::Student(std::string name) : name_(name), creditAccumulated_(0){};
+Student::Student(std::string name) : creditAccumulated_(0){setName(name);};
 Student::~Student() { deleteItemList(); };
 
 // getter
-string Student::getName() const { return name_; };
 double Student::getCreditAccumulated() {
   creditAccumulated_ = 0;
   for (auto it = itemList_.begin(); it != itemList_.end(); it++) {
@@ -21,7 +20,6 @@ double Student::getCote() {
   return creditAccumulatedWeight / getCreditAccumulated();
 }
 // setter
-void Student::setName(const std::string name) { name_ = name; };
 
 std::ostream &operator<<(std::ostream &os, Student &student) {
   os << "\n*******************************" << endl;

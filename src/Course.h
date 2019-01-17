@@ -18,11 +18,9 @@ public:
 
   enum Cote { A, BPLUS, B, CPLUS, C, DPLUS, D, F };
   // getter
-  string getName() const;
   unsigned int getCredit() const;
   double getPassingNote() const;
   // setter
-  void setName(const std::string name);
   void setCredit(const unsigned int credit);
   void setPassingNote(const double note);
 
@@ -35,7 +33,6 @@ public:
   friend std::ostream &operator<<(std::ostream &os, Course &course);
 
 private:
-  string name_;
   unsigned int credit_;
   double passingNote_;
   double note_;

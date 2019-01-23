@@ -12,19 +12,21 @@
 #include <map>
 #include <string>
 
-class StudentManager: {
+class StudentManager {
 public:
-        StudentManager();
-        ~StudentManager();
-        void menu(string menuType);
-        void addSemester(Student *student);
-        void addCourse(Semester *semester);
-        void passedExam(Exam *exam);
-        void addExam(Course *course);
-        void examChoice(Exam *exam);
-        void courseChoice(Course *course);
-        void semesterChoice(Semester *semester);
-        bool choiceMaker(Student *student);
-}
+  StudentManager();
+  ~StudentManager();
+  void menu(string menuType);
+  void addSemester(Student *student);
+  void addCourse(Semester *semester);
+  void passedExam(Exam *exam);
+  void addExam(Course *course);
+  void examChoice(Exam *exam);
+  void courseChoice(Course *course);
+  void semesterChoice(Semester *semester);
+  bool choiceMaker(Student *student);
+
+private:
+};
 
 #endif

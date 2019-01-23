@@ -3,20 +3,11 @@
 #include "GeneralFunction.h"
 #include "Semester.h"
 #include "Student.h"
+#include "StudentManager.h"
 #include <iostream>
 #include <map>
 #include <string>
 
-string semesterName = "";
-string courseName = "";
-string examName = "";
-double maximumNote = 0;
-double obtainedNote = 0;
-double examWeight = 0;
-unsigned int creditNumber = 0;
-double passingNote = 0;
-int choice = 0;
-string isPassed = "No";
 void test1(Student *testStudent) {
 
   Semester *testSem = new Semester("TestSem");
@@ -59,12 +50,15 @@ void test1(Student *testStudent) {
 };
 
 int main() {
-  StudentManager manager = new StudentManager();
-  bool running = true;
+  StudentManager *manager = new StudentManager();
   Student *testStudent = new Student("testStudent");
+  test1(testStudent);
+
+  bool running = true;
   while (running) {
-    running = manager.choiceMaker(testStudent);
+    running = manager->choiceMaker(testStudent);
   }
+
   delete testStudent;
   delete manager;
   return 0;

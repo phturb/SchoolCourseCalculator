@@ -2,6 +2,8 @@
 
 StudentManager::StudentManager(){};
 
+StudentManager::~StudentManager(){};
+
 void StudentManager::menu(string menuType) {
   cout << "-----------------------" << endl;
   cout << "1 to add a " << menuType << endl;
@@ -10,7 +12,7 @@ void StudentManager::menu(string menuType) {
   cout << "4 to delete a " << menuType << endl;
   cout << "9 to exit" << endl;
   cout << "-----------------------" << endl;
-}
+};
 
 void StudentManager::addSemester(Student *student) {
   string semesterName;
@@ -21,15 +23,15 @@ void StudentManager::addSemester(Student *student) {
 
 void StudentManager::addCourse(Semester *semester) {
   string courseName;
-  string creditNumber;
-  string passingNote;
+  unsigned int creditNumber;
+  double passingNote;
   cout << "Course name : ";
   cin >> courseName;
   cout << "Credit number : ";
   cin >> creditNumber;
   cout << "PassingNote : ";
   cin >> passingNote;
-  semester->addItem(new Course(courseName));
+  semester->addItem(new Course(courseName,creditNumber,passingNote));
 };
 void StudentManager::passedExam(Exam *exam) {
   double maximumNote = 0;
@@ -45,6 +47,7 @@ void StudentManager::passedExam(Exam *exam) {
 void StudentManager::addExam(Course *course) {
   string examName;
   double examWeight = 0;
+  string isPassed;
   cout << "Exam name : ";
   cin >> examName;
   Exam *exam = new Exam(examName);
@@ -63,7 +66,7 @@ void StudentManager::addExam(Course *course) {
 };
 
 void StudentManager::examChoice(Exam *exam) {
-  choice = 0;
+  int choice = 0;
   cout << exam->getName() << "Exam CHOICE MAKER" << endl;
   cin >> choice;
   switch (choice) {
@@ -76,7 +79,8 @@ void StudentManager::examChoice(Exam *exam) {
 };
 
 void StudentManager::courseChoice(Course *course) {
-  choice = 0;
+  int choice = 0;
+  string examName;
   cout << course->getName() << " CHOICE MAKER" << endl;
   menu("Exam");
   cin >> choice;
@@ -113,7 +117,8 @@ void StudentManager::courseChoice(Course *course) {
 };
 
 void StudentManager::semesterChoice(Semester *semester) {
-  choice = 0;
+  int choice = 0;
+  string courseName;
   cout << semester->getName() << " CHOICE MAKER" << endl;
   menu("Course");
   cin >> choice;
@@ -154,7 +159,8 @@ void StudentManager::semesterChoice(Semester *semester) {
 };
 
 bool StudentManager::choiceMaker(Student *student) {
-  choice = 0;
+  int choice = 0;
+  string semesterName;
   cout << student->getName() << " CHOICE MAKER" << endl;
   menu("Semester");
   cin >> choice;
@@ -193,7 +199,7 @@ bool StudentManager::choiceMaker(Student *student) {
     cout << *student;
     break;
   case 6:
-    test1(student);
+
     break;
   default:
     return false;
